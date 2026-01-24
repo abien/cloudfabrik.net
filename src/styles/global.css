@@ -115,10 +115,10 @@
 [data-theme="light"] .btn-icon:hover { background-color: #cfd9e8 !important; }
 [data-theme="light"] .category-badge { border-color: #c5ccda !important; }
 [data-theme="light"] .nav-item-active { background-color: rgba(43, 108, 176, 0.18) !important; color: #2b6cb0 !important; border-color: #2b6cb0 !important; }
-[data-theme="light"] .text-syntax-green { color: #2f855a !important; }
-[data-theme="light"] .text-syntax-purple { color: #805ad5 !important; }
-[data-theme="light"] .text-syntax-orange { color: #c05621 !important; }
-[data-theme="light"] .text-syntax-red { color: #c53030 !important; }
+[data-theme="light"] .text-syntax-green { color: #1a5a3a !important; }
+[data-theme="light"] .text-syntax-purple { color: #6b3fa0 !important; }
+[data-theme="light"] .text-syntax-orange { color: #8a2e0a !important; }
+[data-theme="light"] .text-syntax-red { color: #a01a1a !important; }
 [data-theme="light"] .bg-accent { background-color: #2b6cb0 !important; }
 [data-theme="light"] .bg-statusbar-bg { background-color: #2b6cb0 !important; }
 [data-theme="light"] .text-statusbar-text { color: #f8fafc !important; }

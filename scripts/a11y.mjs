@@ -8,16 +8,28 @@ const targets = [
   { name: 'Sample article', path: '/til/2025-03-31-vscode-und-copilot/' }
 ];
 
+const modes = [
+  { name: 'dark', actions: [] },
+  {
+    name: 'light',
+    actions: [
+      'click element #theme-toggle'
+    ]
+  }
+];
+
 function formatIssue(issue) {
   return `- [${issue.type}] ${issue.message} (${issue.selector})`;
 }
 
-async function runTarget(target) {
+async function runTarget(target, mode) {
   const url = new URL(target.path, origin).toString();
-  console.log(`\nChecking ${target.name}: ${url}`);
+  console.log(`\nChecking ${target.name} [${mode.name}]: ${url}`);
   const result = await pa11y(url, {
     standard: 'WCAG2AA',
-    chromeLaunchConfig: { headless: true }
+    chromeLaunchConfig: { headless: true },
+    actions: mode.actions,
+    wait: 500
   });
 
   if (!result.issues.length) {
@@ -31,7 +43,9 @@ async function runTarget(target) {
 
 async function main() {
   for (const target of targets) {
-    await runTarget(target);
+    for (const mode of modes) {
+      await runTarget(target, mode);
+    }
   }
 }
 

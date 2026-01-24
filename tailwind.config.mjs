@@ -14,7 +14,7 @@ export default {
         
         // Text Colors
         'text-primary': '#abb2bf',
-        'text-muted': '#5c6370',
+        'text-muted': '#9fa6b3',
         'text-bright': '#ffffff',
         
         // Accent Colors
