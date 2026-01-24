@@ -9,16 +9,16 @@ interface Props {
 const { currentPage = 'home' } = Astro.props;
 
 const navItems = [
-  { id: 'home', label: '0x00_Home', icon: Home, href: '/' },
-  { id: 'til', label: '0x01_TIL', icon: Lightbulb, href: '/#til' },
-  { id: 'updated', label: '0x02_Updated', icon: RefreshCw, href: '/#updated' },
-  { id: 'archive', label: '0x03_Archive', icon: Archive, href: '/archive' },
+  { id: 'home', label: 'Home', icon: Home, href: '/' },
+  { id: 'til', label: 'TIL', icon: Lightbulb, href: '/#til' },
+  { id: 'updated', label: 'Updated', icon: RefreshCw, href: '/#updated' },
+  { id: 'archive', label: 'Archive', icon: Archive, href: '/archive' },
 ];
 ---
 
-<aside class="w-64 border-r border-border bg-bg-editor flex flex-col justify-between p-4 shrink-0">
-  <div class="flex flex-col gap-6">
-    <div class="flex flex-col items-center p-4 rounded-lg bg-bg-hover/50 border border-border">
+<aside class="w-16 md:w-64 border-r border-border bg-bg-editor flex flex-col justify-between p-2 md:p-4 shrink-0">
+  <div class="flex flex-col gap-4 md:gap-6">
+    <div class="hidden md:flex flex-col items-center p-4 rounded-lg bg-bg-hover/50 border border-border">
       <div 
         class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-16 border-2 border-accent/30 mb-3"
         style="background-image: url('/images/profile.jpg');"
@@ -36,15 +36,16 @@ const navItems = [
       {navItems.map((item) => (
         <a 
           href={item.href}
+          aria-label={item.label}
           class:list={[
-            'flex items-center gap-3 px-3 py-2 rounded cursor-pointer transition-colors text-xs font-medium font-mono',
+            'flex flex-row items-center justify-center md:justify-start gap-0 md:gap-2 px-2 py-3 md:px-3 md:py-2 rounded cursor-pointer transition-colors text-[11px] md:text-xs font-medium font-mono md:whitespace-nowrap',
             currentPage === item.id 
               ? 'bg-accent/20 text-accent border-l-2 border-accent' 
               : 'text-text-muted hover:bg-bg-hover hover:text-text-bright'
           ]}
         >
           <item.icon class="w-5 h-5" />
-          <span>{item.label}</span>
+          <span class="hidden md:inline">{item.label}</span>
         </a>
       ))}
     </nav>
@@ -55,19 +56,21 @@ const navItems = [
       href="https://github.com/abien/" 
       target="_blank" 
       rel="noopener noreferrer"
-      class="flex items-center gap-3 px-3 py-2 text-text-muted hover:text-accent transition-colors cursor-pointer"
+      aria-label="GitHub"
+      class="flex flex-row items-center justify-center md:justify-start gap-0 md:gap-3 px-2 py-2 md:px-3 text-text-muted hover:text-accent transition-colors cursor-pointer"
     >
       <Github class="w-5 h-5" />
-      <span class="text-[11px] font-mono">GitHub</span>
+      <span class="hidden md:inline text-[11px] font-mono">GitHub</span>
     </a>
     <a 
       href="https://www.linkedin.com/in/alexanderbien/" 
       target="_blank" 
       rel="noopener noreferrer"
-      class="flex items-center gap-3 px-3 py-2 text-text-muted hover:text-accent transition-colors cursor-pointer"
+      aria-label="LinkedIn"
+      class="flex flex-row items-center justify-center md:justify-start gap-0 md:gap-3 px-2 py-2 md:px-3 text-text-muted hover:text-accent transition-colors cursor-pointer"
     >
       <Linkedin class="w-5 h-5" />
-      <span class="text-[11px] font-mono">LinkedIn</span>
+      <span class="hidden md:inline text-[11px] font-mono">LinkedIn</span>
     </a>
   </div>
 </aside>
