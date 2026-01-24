@@ -1,0 +1,194 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Statusbar from '../components/Statusbar.astro';
+import { Calendar, Clock, RefreshCw, User, Share2, Bookmark, Link, ChevronLeft, ChevronRight } from '@lucide/astro';
+import { formatDateDisplay } from '../utils/date';
+import { getCategoryClass } from '../utils/category';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'til'>;
+  prevEntry?: CollectionEntry<'til'>;
+  nextEntry?: CollectionEntry<'til'>;
+}
+
+const { entry, prevEntry, nextEntry } = Astro.props;
+const { title, description, pubDate, updatedDate, category, tags } = entry.data;
+---
+
+<BaseLayout 
+  title={title} 
+  description={description}
+  article={true}
+  publishedTime={pubDate}
+>
+  <Header currentPath={`/til/${entry.id}`} />
+  
+  <div class="flex flex-1 overflow-hidden">
+    <aside class="hidden lg:block w-64 shrink-0 border-r border-border bg-bg-editor">
+      <div class="sticky top-16 p-6 flex flex-col gap-6">
+        <h3 class="text-xs font-bold uppercase tracking-widest text-text-muted">Table of Contents</h3>
+        <nav id="toc" class="flex flex-col gap-1 text-sm">
+        </nav>
+        <div class="mt-8 rounded-xl border border-dashed border-border p-4">
+          <p class="text-xs font-medium text-text-muted mb-2">Reading Progress</p>
+          <div class="h-1.5 w-full bg-border rounded-full overflow-hidden">
+            <div id="reading-progress" class="h-full w-0 bg-accent transition-all duration-150"></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+    
+    <main class="flex-1 overflow-y-auto bg-bg-main">
+      <article class="max-w-3xl mx-auto px-6 md:px-10 py-8">
+        <div class="mb-6 flex flex-wrap items-center gap-2 text-sm">
+          <a href="/" class="text-text-muted hover:text-accent transition-colors">Home</a>
+          <span class="text-text-muted">/</span>
+          <a href="/archive" class="text-text-muted hover:text-accent transition-colors">TIL</a>
+          <span class="text-text-muted">/</span>
+          <span class="text-accent font-mono">{entry.id}</span>
+        </div>
+        
+        <header class="mb-10">
+          <h1 class="mb-4 text-4xl font-black leading-tight tracking-tight text-text-bright md:text-5xl">
+            {title}
+          </h1>
+          <div class="flex flex-wrap items-center gap-4 text-sm text-text-muted font-mono">
+            <div class="flex items-center gap-1">
+              <Calendar class="w-4 h-4" />
+              {formatDateDisplay(pubDate)}
+            </div>
+            {updatedDate && (
+              <>
+                <span class="hidden sm:inline">•</span>
+                <div class="flex items-center gap-1">
+                  <RefreshCw class="w-4 h-4" />
+                  Updated: {formatDateDisplay(updatedDate)}
+                </div>
+              </>
+            )}
+            <span class="hidden sm:inline">•</span>
+            <div class="flex items-center gap-1">
+              <Clock class="w-4 h-4" />
+              ~5 min read
+            </div>
+          </div>
+        </header>
+        
+        <div class="mb-8 flex flex-wrap gap-2">
+          <span class={`category-badge ${getCategoryClass(category)}`}>{category}</span>
+          {tags.map((tag) => (
+            <span class="inline-flex items-center rounded-lg bg-bg-hover px-3 py-1 text-xs font-medium text-text-bright font-mono">
+              #{tag}
+            </span>
+          ))}
+        </div>
+        
+        <div class="prose prose-invert max-w-none" id="article-content">
+          <slot />
+        </div>
+        
+        <div class="mt-16 border-t border-border pt-10 flex flex-col sm:flex-row gap-4 justify-between">
+          {prevEntry ? (
+            <a href={`/til/${prevEntry.id}`} class="group flex flex-col gap-1 max-w-[280px]">
+              <span class="text-xs font-mono text-text-muted group-hover:text-accent flex items-center gap-1">
+                <ChevronLeft class="w-3 h-3" /> PREVIOUS POST
+              </span>
+              <span class="text-base font-bold text-text-bright group-hover:underline">{prevEntry.data.title}</span>
+            </a>
+          ) : <div />}
+          
+          {nextEntry ? (
+            <a href={`/til/${nextEntry.id}`} class="group flex flex-col gap-1 max-w-[280px] text-right">
+              <span class="text-xs font-mono text-text-muted group-hover:text-accent flex items-center justify-end gap-1">
+                NEXT POST <ChevronRight class="w-3 h-3" />
+              </span>
+              <span class="text-base font-bold text-text-bright group-hover:underline">{nextEntry.data.title}</span>
+            </a>
+          ) : <div />}
+        </div>
+      </article>
+    </main>
+    
+    <aside class="hidden xl:block w-64 shrink-0 border-l border-border bg-bg-editor">
+      <div class="sticky top-16 p-6 flex flex-col gap-8">
+        <div class="rounded-xl bg-bg-hover p-6 border border-border">
+          <h4 class="text-sm font-bold text-text-bright mb-4 flex items-center gap-2">
+            <User class="w-4 h-4 text-accent" />
+            About Author
+          </h4>
+          <div class="flex items-center gap-3 mb-4">
+            <div 
+              class="size-10 rounded-full bg-cover bg-center"
+              style="background-image: url('/images/profile.jpg');"
+            ></div>
+            <div>
+              <p class="text-sm font-bold text-text-bright">abien</p>
+              <p class="text-xs text-text-muted">CIO @ Symgenius</p>
+            </div>
+          </div>
+          <p class="text-xs leading-relaxed text-text-muted">
+            25+ Jahre IT-Infrastruktur & Ops-Erfahrung.
+          </p>
+        </div>
+        
+        <div class="flex flex-col gap-4">
+          <h4 class="text-xs font-bold uppercase tracking-widest text-text-muted">Share</h4>
+          <div class="flex gap-3">
+            <button class="btn-icon" title="Share">
+              <Share2 class="w-4 h-4" />
+            </button>
+            <button class="btn-icon" title="Bookmark">
+              <Bookmark class="w-4 h-4" />
+            </button>
+            <button class="btn-icon" title="Copy Link">
+              <Link class="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+  
+  <Statusbar />
+</BaseLayout>
+
+<script>
+  function generateTOC() {
+    const content = document.getElementById('article-content');
+    const toc = document.getElementById('toc');
+    if (!content || !toc) return;
+    
+    const headings = content.querySelectorAll('h2, h3');
+    
+    headings.forEach((heading, index) => {
+      const id = `heading-${index}`;
+      heading.id = id;
+      
+      const link = document.createElement('a');
+      link.href = `#${id}`;
+      link.textContent = heading.textContent;
+      link.className = heading.tagName === 'H2' 
+        ? 'text-text-muted hover:text-accent transition-colors py-1'
+        : 'text-text-muted hover:text-accent transition-colors py-1 pl-4 text-xs';
+      
+      toc.appendChild(link);
+    });
+  }
+  
+  function updateReadingProgress() {
+    const progressBar = document.getElementById('reading-progress');
+    if (!progressBar) return;
+    
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    
+    progressBar.style.width = `${Math.min(progress, 100)}%`;
+  }
+  
+  generateTOC();
+  window.addEventListener('scroll', updateReadingProgress);
+  updateReadingProgress();
+</script>

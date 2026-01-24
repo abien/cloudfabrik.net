@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
+import Statusbar from '../components/Statusbar.astro';
+import TilTable from '../components/TilTable.astro';
+import UpdatedGrid from '../components/UpdatedGrid.astro';
+
+const allPosts = await getCollection('til', ({ data }) => !data.draft);
+const sortedByDate = allPosts.sort((a, b) => 
+  b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const recentTil = sortedByDate.slice(0, 10);
+---
+
+<BaseLayout title="Home">
+  <Header currentPath="/" />
+  
+  <div class="flex flex-1 overflow-hidden">
+    <Sidebar currentPage="home" />
+    
+    <main class="flex-1 overflow-y-auto bg-bg-main p-8">
+      <div class="max-w-6xl mx-auto space-y-12">
+        <div id="til">
+          <TilTable entries={recentTil} limit={10} totalCount={allPosts.length} />
+        </div>
+        
+        <div id="updated">
+          <UpdatedGrid entries={sortedByDate} limit={10} />
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <Statusbar articleCount={allPosts.length} />
+</BaseLayout>

@@ -1,0 +1,48 @@
+---
+import { GitBranch, RefreshCw, AlertTriangle, CheckCircle } from '@lucide/astro';
+import { getBuildTime } from '../utils/date';
+
+interface Props {
+  articleCount?: number;
+}
+
+const { articleCount } = Astro.props;
+const buildTime = getBuildTime();
+---
+
+<footer class="h-6 bg-statusbar-bg flex items-center px-4 justify-between text-statusbar-text select-none text-[10px] font-mono font-medium">
+  <div class="flex items-center gap-4 h-full">
+    <div class="flex items-center gap-1 hover:bg-black/10 px-2 h-full cursor-default">
+      <GitBranch class="w-3.5 h-3.5" />
+      <span>main*</span>
+    </div>
+    <div class="flex items-center gap-1 hover:bg-black/10 px-2 h-full cursor-default">
+      <RefreshCw class="w-3.5 h-3.5" />
+      <span>SYNC_OK</span>
+    </div>
+    <div class="flex items-center gap-1 hover:bg-black/10 px-2 h-full cursor-default">
+      <CheckCircle class="w-3.5 h-3.5" />
+      <span>0 Errors</span>
+    </div>
+  </div>
+  
+  <div class="flex items-center gap-4 h-full">
+    <div class="flex items-center gap-2 px-2">
+      <span>Last Build: {buildTime}</span>
+    </div>
+    {articleCount !== undefined && (
+      <div class="flex items-center gap-1 px-2">
+        <span>Articles: {articleCount}</span>
+      </div>
+    )}
+    <div class="flex items-center gap-1 hover:bg-black/10 px-2 h-full cursor-default">
+      <span>Spaces: 4</span>
+    </div>
+    <div class="flex items-center gap-1 hover:bg-black/10 px-2 h-full cursor-default">
+      <span>UTF-8</span>
+    </div>
+    <div class="bg-black/20 px-2 h-full flex items-center">
+      <span>SSG</span>
+    </div>
+  </div>
+</footer>

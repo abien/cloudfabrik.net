@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Statusbar from '../components/Statusbar.astro';
+import { AlertTriangle, Home, Archive } from '@lucide/astro';
+---
+
+<BaseLayout title="404 - Not Found" description="Page not found" noindex={true}>
+  <Header currentPath="/404" />
+  
+  <main class="flex flex-1 items-center justify-center bg-bg-main">
+    <div class="text-center p-8">
+      <div class="flex justify-center mb-6">
+        <AlertTriangle class="w-24 h-24 text-syntax-orange" />
+      </div>
+      
+      <h1 class="text-6xl font-black text-text-bright font-mono mb-4">404</h1>
+      <p class="text-xl text-text-muted font-mono mb-2">ERROR: FILE_NOT_FOUND</p>
+      <p class="text-sm text-text-muted font-mono mb-8">
+        The requested resource could not be located on this server.
+      </p>
+      
+      <div class="font-mono text-sm text-text-muted bg-bg-editor border border-border rounded p-4 mb-8 max-w-md mx-auto text-left">
+        <p class="text-syntax-red">$ cat /var/log/404.log</p>
+        <p class="text-text-primary mt-2">Path: {Astro.url.pathname}</p>
+        <p class="text-text-primary">Status: NOT_FOUND</p>
+        <p class="text-text-primary">Suggestion: Check URL or navigate home</p>
+      </div>
+      
+      <div class="flex gap-4 justify-center">
+        <a 
+          href="/" 
+          class="flex items-center gap-2 px-6 py-3 bg-accent text-statusbar-text font-bold rounded hover:bg-accent-hover transition-colors"
+        >
+          <Home class="w-4 h-4" />
+          Go Home
+        </a>
+        <a 
+          href="/archive" 
+          class="flex items-center gap-2 px-6 py-3 bg-bg-hover text-text-bright font-bold rounded border border-border hover:border-accent transition-colors"
+        >
+          <Archive class="w-4 h-4" />
+          Browse Archive
+        </a>
+      </div>
+    </div>
+  </main>
+  
+  <Statusbar />
+</BaseLayout>

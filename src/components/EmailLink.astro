@@ -1,0 +1,52 @@
+---
+interface Props {
+  email: string;
+  class?: string;
+}
+
+const { email, class: className = '' } = Astro.props;
+
+const [user, domain] = email.split('@');
+const reversedUser = user.split('').reverse().join('');
+const reversedDomain = domain.split('').reverse().join('');
+---
+
+<a 
+  href="#"
+  class:list={["email-protected", className]}
+  data-u={reversedUser}
+  data-d={reversedDomain}
+  aria-label="E-Mail senden"
+>
+  <span class="email-part" data-part="user">{user}</span>
+  <span class="email-at">@</span>
+  <span class="email-part" data-part="domain">{domain}</span>
+</a>
+
+<style>
+  .email-protected {
+    cursor: pointer;
+    unicode-bidi: bidi-override;
+    direction: ltr;
+  }
+  
+  .email-at::before {
+    content: '\200B';
+  }
+  
+  .email-at::after {
+    content: '\200B';
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.email-protected').forEach((el) => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      const link = e.currentTarget as HTMLAnchorElement;
+      const u = link.dataset.u?.split('').reverse().join('') || '';
+      const d = link.dataset.d?.split('').reverse().join('') || '';
+      window.location.href = 'mai' + 'lto:' + u + '@' + d;
+    });
+  });
+</script>

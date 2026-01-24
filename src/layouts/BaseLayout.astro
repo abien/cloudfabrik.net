@@ -1,0 +1,43 @@
+---
+import '../styles/global.css';
+import SEO from '../components/SEO.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+  publishedTime?: Date;
+  noindex?: boolean;
+}
+
+const { 
+  title, 
+  description = 'AI Journey Logbook - Technical findings and insights from a System Engineer',
+  image,
+  article = false,
+  publishedTime,
+  noindex = false
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <SEO 
+      title={title} 
+      description={description} 
+      image={image}
+      article={article}
+      publishedTime={publishedTime}
+      noindex={noindex}
+    />
+  </head>
+  <body class="bg-bg-main text-text-primary min-h-screen flex flex-col">
+    <slot />
+  </body>
+</html>

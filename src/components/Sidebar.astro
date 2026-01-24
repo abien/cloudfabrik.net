@@ -1,0 +1,73 @@
+---
+import { Home, Lightbulb, RefreshCw, Archive, Github, Linkedin } from '@lucide/astro';
+import EmailLink from './EmailLink.astro';
+
+interface Props {
+  currentPage?: 'home' | 'til' | 'updated' | 'archive';
+}
+
+const { currentPage = 'home' } = Astro.props;
+
+const navItems = [
+  { id: 'home', label: '0x00_Home', icon: Home, href: '/' },
+  { id: 'til', label: '0x01_TIL', icon: Lightbulb, href: '/#til' },
+  { id: 'updated', label: '0x02_Updated', icon: RefreshCw, href: '/#updated' },
+  { id: 'archive', label: '0x03_Archive', icon: Archive, href: '/archive' },
+];
+---
+
+<aside class="w-64 border-r border-border bg-bg-editor flex flex-col justify-between p-4 shrink-0">
+  <div class="flex flex-col gap-6">
+    <div class="flex flex-col items-center p-4 rounded-lg bg-bg-hover/50 border border-border">
+      <div 
+        class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-16 border-2 border-accent/30 mb-3"
+        style="background-image: url('/images/profile.jpg');"
+      ></div>
+      <div class="flex flex-col items-center">
+        <h1 class="text-text-bright text-sm font-bold font-mono">abien</h1>
+        <EmailLink 
+          email="abien@gmx.net" 
+          class="text-text-muted hover:text-accent text-[10px] font-mono mt-1 transition-colors"
+        />
+      </div>
+    </div>
+    
+    <nav class="flex flex-col gap-1">
+      {navItems.map((item) => (
+        <a 
+          href={item.href}
+          class:list={[
+            'flex items-center gap-3 px-3 py-2 rounded cursor-pointer transition-colors text-xs font-medium font-mono',
+            currentPage === item.id 
+              ? 'bg-accent/20 text-accent border-l-2 border-accent' 
+              : 'text-text-muted hover:bg-bg-hover hover:text-text-bright'
+          ]}
+        >
+          <item.icon class="w-5 h-5" />
+          <span>{item.label}</span>
+        </a>
+      ))}
+    </nav>
+  </div>
+  
+  <div class="flex flex-col gap-2">
+    <a 
+      href="https://github.com/abien/" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      class="flex items-center gap-3 px-3 py-2 text-text-muted hover:text-accent transition-colors cursor-pointer"
+    >
+      <Github class="w-5 h-5" />
+      <span class="text-[11px] font-mono">GitHub</span>
+    </a>
+    <a 
+      href="https://www.linkedin.com/in/alexanderbien/" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      class="flex items-center gap-3 px-3 py-2 text-text-muted hover:text-accent transition-colors cursor-pointer"
+    >
+      <Linkedin class="w-5 h-5" />
+      <span class="text-[11px] font-mono">LinkedIn</span>
+    </a>
+  </div>
+</aside>

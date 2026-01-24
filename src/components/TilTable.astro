@@ -1,0 +1,58 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { generateHexId } from '../utils/id';
+import { formatDate } from '../utils/date';
+import { getCategoryClass } from '../utils/category';
+
+interface Props {
+  entries: CollectionEntry<'til'>[];
+  limit?: number;
+  totalCount?: number;
+}
+
+const { entries, limit = 10, totalCount } = Astro.props;
+const displayEntries = entries.slice(0, limit);
+---
+
+<section>
+  <div class="flex items-center justify-between mb-4 border-b border-border pb-2">
+    <h2 class="font-mono text-accent text-sm font-bold tracking-widest">[01] TODAY_I_LEARNED ({limit}_RECENT)</h2>
+    {totalCount !== undefined && (
+      <span class="text-[10px] text-text-muted font-mono">total_count: {totalCount}</span>
+    )}
+  </div>
+  
+  <div class="bg-bg-editor border border-border rounded overflow-hidden">
+    <table class="w-full text-left border-collapse">
+      <thead>
+        <tr class="bg-bg-hover text-text-muted uppercase text-[10px] font-mono">
+          <th class="px-4 py-2 font-medium w-24">ID</th>
+          <th class="px-4 py-2 font-medium">Log_Entry_Title</th>
+          <th class="px-4 py-2 font-medium w-32">Namespace</th>
+          <th class="px-4 py-2 font-medium w-28">Date</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-border font-mono text-xs">
+        {displayEntries.map((entry, index) => (
+          <tr class="hover:bg-bg-hover transition-colors group">
+            <td class="px-4 py-3 text-text-muted">{generateHexId(index)}</td>
+            <td class="px-4 py-3">
+              <a 
+                href={`/til/${entry.id}`}
+                class="text-syntax-green hover:text-accent hover:underline transition-colors"
+              >
+                {entry.data.title}
+              </a>
+            </td>
+            <td class="px-4 py-3">
+              <span class={`category-badge ${getCategoryClass(entry.data.category)}`}>
+                {entry.data.category}
+              </span>
+            </td>
+            <td class="px-4 py-3 text-text-muted">{formatDate(entry.data.pubDate)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>

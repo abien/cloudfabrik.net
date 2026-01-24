@@ -1,0 +1,92 @@
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/inter/900.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+@import '@fontsource/jetbrains-mono/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply bg-bg-main text-text-primary font-sans antialiased;
+  }
+
+  /* Custom scrollbar for IDE feel */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-bg-main;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-text-muted;
+  }
+
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #3e4451 #282c34;
+  }
+}
+
+@layer components {
+  .mono-text {
+    @apply font-mono;
+  }
+
+  .category-badge {
+    @apply px-2 py-0.5 rounded text-xs font-mono border;
+  }
+
+  .category-ai-ml {
+    @apply bg-accent/10 text-accent border-accent/20;
+  }
+
+  .category-devops {
+    @apply bg-syntax-purple/10 text-syntax-purple border-syntax-purple/20;
+  }
+
+  .category-systems {
+    @apply bg-syntax-orange/10 text-syntax-orange border-syntax-orange/20;
+  }
+
+  .category-web {
+    @apply bg-syntax-green/10 text-syntax-green border-syntax-green/20;
+  }
+
+  .category-infra {
+    @apply bg-syntax-red/10 text-syntax-red border-syntax-red/20;
+  }
+
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2 text-text-muted hover:bg-bg-hover hover:text-text-bright rounded cursor-pointer transition-colors;
+  }
+
+  .nav-item-active {
+    @apply bg-accent/20 text-accent border-l-2 border-accent;
+  }
+
+  .btn-icon {
+    @apply flex items-center justify-center rounded w-9 h-9 bg-bg-hover hover:bg-border text-text-muted transition-colors;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

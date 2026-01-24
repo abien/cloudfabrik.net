@@ -1,0 +1,63 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Pencil, ArrowRight } from '@lucide/astro';
+import { formatDate } from '../utils/date';
+
+interface Props {
+  entries: CollectionEntry<'til'>[];
+  limit?: number;
+}
+
+const { entries, limit = 10 } = Astro.props;
+
+const updatedEntries = entries
+  .filter(entry => entry.data.updatedDate)
+  .sort((a, b) => (b.data.updatedDate?.valueOf() || 0) - (a.data.updatedDate?.valueOf() || 0))
+  .slice(0, limit);
+---
+
+<section>
+  <div class="flex items-center justify-between mb-4 border-b border-border pb-2">
+    <h2 class="font-mono text-syntax-orange text-sm font-bold tracking-widest">[02] RECENTLY_UPDATED (NON_TIL)</h2>
+    <span class="text-[10px] text-text-muted font-mono">count: {updatedEntries.length}</span>
+  </div>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {updatedEntries.slice(0, 4).map((entry) => (
+      <a 
+        href={`/til/${entry.id}`}
+        class="bg-bg-editor border border-border rounded p-4 flex flex-col gap-2 hover:border-syntax-orange/50 cursor-pointer transition-all group"
+      >
+        <div class="flex justify-between items-start">
+          <span class="font-mono text-[10px] text-text-muted">
+            MODIFIED: {formatDate(entry.data.updatedDate!)}
+          </span>
+          <Pencil class="w-4 h-4 text-syntax-purple" />
+        </div>
+        <h3 class="font-mono text-sm font-medium text-text-bright group-hover:text-accent transition-colors">
+          {entry.data.title}
+        </h3>
+        <p class="text-[11px] text-text-muted line-clamp-2 font-mono">
+          {entry.data.description}
+        </p>
+      </a>
+    ))}
+    
+    {updatedEntries.slice(4).map((entry) => (
+      <a 
+        href={`/til/${entry.id}`}
+        class="bg-bg-editor/50 border border-border rounded p-3 flex justify-between items-center group cursor-pointer hover:bg-bg-editor transition-colors"
+      >
+        <div class="flex flex-col">
+          <span class="font-mono text-xs text-text-primary group-hover:text-accent transition-colors">
+            {entry.data.title}
+          </span>
+          <span class="font-mono text-[9px] text-text-muted italic">
+            Updated {formatDate(entry.data.updatedDate!)}
+          </span>
+        </div>
+        <ArrowRight class="w-4 h-4 text-text-muted group-hover:text-accent transition-colors" />
+      </a>
+    ))}
+  </div>
+</section>
