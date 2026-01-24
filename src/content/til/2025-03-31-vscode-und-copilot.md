@@ -1,5 +1,5 @@
 ---
-title: "Neu: vscode und copilot"
+title: "Effizient durch KI: Unsere Erfahrungen mit GitHub Copilot"
 description: "Erste Eindrücke von GitHub Copilot bei der Verwendung innerhalb von vscode"
 pubDate: 2025-03-31
 category: "AI/ML"
