@@ -22,12 +22,27 @@ const {
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <script is:inline>
+(() => {
+  try {
+    const root = document.documentElement;
+    const stored = localStorage.getItem('theme');
+    const nextTheme = stored === 'light' ? 'light' : 'dark';
+    root.dataset.theme = nextTheme;
+    root.classList.toggle('dark', nextTheme === 'dark');
+  } catch (err) {
+    // If storage is unavailable, stay on dark (default)
+    document.documentElement.dataset.theme = 'dark';
+    document.documentElement.classList.add('dark');
+  }
+})();
+    </script>
     <SEO 
       title={title} 
       description={description} 

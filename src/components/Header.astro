@@ -1,5 +1,5 @@
 ---
-import { Terminal, Search, Settings, Bell } from '@lucide/astro';
+import { Terminal, Search, Settings, Sun, Moon } from '@lucide/astro';
 
 interface Props {
   currentPath?: string;
@@ -44,9 +44,37 @@ const getPathDisplay = (path: string): string => {
       <button class="btn-icon" title="Settings">
         <Settings class="w-5 h-5" />
       </button>
-      <button class="btn-icon" title="Notifications">
-        <Bell class="w-5 h-5" />
+      <button id="theme-toggle" class="btn-icon" title="Toggle light/dark mode" aria-label="Toggle light or dark mode">
+        <Sun class="w-5 h-5 theme-icon theme-icon-sun" />
+        <Moon class="w-5 h-5 theme-icon theme-icon-moon" />
       </button>
     </div>
   </div>
 </header>
+
+<script is:inline>
+(() => {
+  const run = () => {
+    const root = document.documentElement;
+    const toggleBtn = document.getElementById('theme-toggle');
+    if (!toggleBtn) return;
+    const setTheme = (theme) => {
+      const next = theme === 'light' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      root.classList.toggle('dark', next === 'dark');
+      localStorage.setItem('theme', next);
+    };
+    toggleBtn.addEventListener('click', () => {
+      const current = root.dataset.theme === 'light' ? 'light' : 'dark';
+      setTheme(current === 'light' ? 'dark' : 'light');
+      toggleBtn.setAttribute('data-click-handler', 'attached');
+    });
+    toggleBtn.setAttribute('data-click-handler', 'attached');
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else {
+    run();
+  }
+})();
+</script>
