@@ -15,22 +15,14 @@
 npm run dev       # Dev server at localhost:4321
 npm run build     # Build to ./dist/
 npm run preview   # Preview production build
+npm run astro -- check   # Type check content + TS
 ```
 
-**No test framework** - verify changes via `npm run build`.
+**No lint/test framework** - verify changes via `npm run build` or `npm run astro -- check`.
 
-## Project Structure
-
-```
-src/
-├── components/      # Reusable .astro components
-├── layouts/         # BaseLayout, ArticleLayout
-├── pages/           # index, archive, til/[...slug]
-├── content/til/     # Markdown articles
-├── styles/          # global.css
-└── utils/           # TypeScript utilities
-public/              # Static assets
-```
+### Single Test / Focused Checks
+- There is no test runner or lint script. Use `npm run astro -- check` for type/content validation.
+- For component-level changes, run `npm run build` to validate SSG output.
 
 ## Code Style - Astro Components
 
@@ -74,6 +66,27 @@ export function functionName(param: ParamType): ReturnType {
 const map: Record<Category, string> = { ... };
 ```
 
+### Imports
+- Order: external → internal → local assets
+- One blank line between groups
+- Use relative paths for local modules; no absolute aliases
+
+### Formatting
+- Use single quotes in TS/Astro unless the file already uses double quotes
+- 2 spaces for indentation, no tabs
+- Keep JSX/Astro props in a single line unless it hurts readability
+- Favor small, composable blocks over nested logic
+
+### Types
+- Prefer explicit return types for exported functions
+- Avoid type assertions (`as`) unless required by API contracts
+- Keep unions and enums in a shared util when reused
+
+### Error Handling
+- Prefer safe fallbacks for content data (see category/icon helpers)
+- Throw only when a failure is unrecoverable or should break the build
+- Avoid silent failures; log in build-time only if necessary
+
 ## Naming Conventions
 
 | Type | Convention | Example |
@@ -83,15 +96,6 @@ const map: Record<Category, string> = { ... };
 | Utilities | camelCase | `formatDate` |
 | CSS classes | kebab-case | `bg-main` |
 | Types | PascalCase | `Category` |
-
-## Tailwind Colors (One Dark Pro)
-
-```
-bg-main (#282c34)       bg-editor (#21252b)     bg-hover (#2c313a)
-border (#3e4451)        text-primary (#abb2bf)  text-muted (#5c6370)
-text-bright (#ffffff)   accent (#61afef)        syntax-green (#98c379)
-syntax-purple (#c678dd) syntax-orange (#d19a66) syntax-red (#e06c75)
-```
 
 ## Content Schema
 
@@ -109,21 +113,16 @@ draft: false             # optional
 
 ## Patterns
 
-### Conditional Classes
-```astro
-<div class:list={['base', isActive && 'active', { 'cond': bool }]}>
-```
-
-### Conditional Rendering
-```astro
-{condition && <Component />}
-{items.map((item) => <Item {item} />)}
-```
-
-### Date Functions
-- `formatDate()` - ISO format (2026-01-24)
-- `formatDateDisplay()` - Human format (Jan 24, 2026)
+### Component Patterns
+- Use `class:list` for conditional classes
+- Use inline boolean render (`condition && <Component />`) or `.map` for lists
+- Use `formatDate()` for ISO and `formatDateDisplay()` for display
 - Avoid `getRelativeTime()` for SSG (freezes at build)
+
+### Content Collections
+- Schema is enforced in `src/content.config.ts`
+- Use `z.coerce.date()` for date fields
+- Keep `draft` and `tags` defaults aligned with schema
 
 ## Constraints
 
@@ -131,6 +130,10 @@ draft: false             # optional
 2. **No Type Suppression** - Never `@ts-ignore` or `as any`
 3. **TypeScript Strict** - Uses `astro/tsconfigs/strict`
 4. **SSG Only** - Static generation at build time
+
+## Cursor/Copilot Rules
+
+- No `.cursor/rules`, `.cursorrules`, or `.github/copilot-instructions.md` found in this repo.
 
 ## Before Submitting
 
