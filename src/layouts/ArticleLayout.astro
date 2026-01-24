@@ -129,16 +129,14 @@ const { title, description, pubDate, updatedDate, category, tags } = entry.data;
         
         <div class="flex flex-col gap-4">
           <h4 class="text-xs font-bold uppercase tracking-widest text-text-muted">Share</h4>
-          <div class="flex gap-3">
-            <button class="btn-icon" title="Share">
-              <Share2 class="w-4 h-4" />
-            </button>
-            <button class="btn-icon" title="Bookmark">
-              <Bookmark class="w-4 h-4" />
-            </button>
-            <button class="btn-icon" title="Copy Link">
+          <div class="flex gap-3 items-center">
+            <button class="btn-icon" title="Copy link" aria-label="Copy link" data-share-action="copy">
               <Link class="w-4 h-4" />
             </button>
+            <button class="btn-icon" title="Share" aria-label="Share" data-share-action="share">
+              <Share2 class="w-4 h-4" />
+            </button>
+            <span id="share-hint" class="text-[11px] font-mono text-text-muted transition-opacity" style="opacity: 0;">Link copied</span>
           </div>
         </div>
       </div>
@@ -172,5 +170,55 @@ const { title, description, pubDate, updatedDate, category, tags } = entry.data;
   }
   
   generateTOC();
-  
+
+  const canonicalUrl = window.location.href;
+  const articleTitle = document.querySelector('h1')?.textContent?.trim() || document.title || 'Article';
+
+  async function copyLink() {
+    try {
+      await navigator.clipboard.writeText(canonicalUrl);
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = canonicalUrl;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+    }
+    const hint = document.getElementById('share-hint');
+    if (hint) {
+      hint.dataset.state = 'shown';
+      hint.style.opacity = '1';
+      setTimeout(() => {
+        hint.style.opacity = '0';
+        hint.dataset.state = 'hidden';
+      }, 1600);
+    }
+  }
+
+  function shareArticle() {
+    if (navigator.share) {
+      navigator.share({ title: articleTitle, url: canonicalUrl }).catch(() => {});
+      return;
+    }
+    const subject = encodeURIComponent(articleTitle);
+    const body = encodeURIComponent(`${articleTitle}\n${canonicalUrl}`);
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  }
+
+  function bindShareButtons() {
+    const buttons = document.querySelectorAll('[data-share-action]');
+    buttons.forEach((btn) => {
+      const action = btn.getAttribute('data-share-action');
+      if (action === 'copy') btn.addEventListener('click', copyLink);
+      if (action === 'share') btn.addEventListener('click', shareArticle);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindShareButtons);
+  } else {
+    bindShareButtons();
+  }
+
 </script>
