@@ -5,6 +5,7 @@ import Statusbar from '../components/Statusbar.astro';
 import { Calendar, Clock, RefreshCw, User, Share2, Bookmark, Link, ChevronLeft, ChevronRight } from '@lucide/astro';
 import { formatDateDisplay } from '../utils/date';
 import { getCategoryClass } from '../utils/category';
+import { calculateReadingTime, formatReadingTime } from '../utils/readingTime';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -15,6 +16,10 @@ interface Props {
 
 const { entry, prevEntry, nextEntry } = Astro.props;
 const { title, description, pubDate, updatedDate, category, tags } = entry.data;
+
+// Render the content to calculate reading time from the body
+const readingTime = calculateReadingTime(entry.body || '');
+const readingTimeDisplay = formatReadingTime(readingTime);
 ---
 
 <BaseLayout 
@@ -65,7 +70,7 @@ const { title, description, pubDate, updatedDate, category, tags } = entry.data;
             <span class="hidden sm:inline">•</span>
             <div class="flex items-center gap-1">
               <Clock class="w-4 h-4" />
-              ~5 min read
+              {readingTimeDisplay}
             </div>
           </div>
         </header>
