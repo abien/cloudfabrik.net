@@ -26,16 +26,16 @@ const displayEntries = entries.slice(0, limit);
     <table class="w-full text-left border-collapse">
       <thead>
         <tr class="bg-bg-hover text-text-muted uppercase text-[10px] font-mono">
-          <th class="px-4 py-2 font-medium w-24">ID</th>
+          <th class="px-4 py-2 font-medium w-28">Date</th>
           <th class="px-4 py-2 font-medium">Log_Entry_Title</th>
           <th class="px-4 py-2 font-medium w-32">Namespace</th>
-          <th class="px-4 py-2 font-medium w-28">Date</th>
+          <th class="px-4 py-2 font-medium w-24">ID</th>
         </tr>
       </thead>
       <tbody class="divide-y divide-border font-mono text-xs">
         {displayEntries.map((entry, index) => (
           <tr class="hover:bg-bg-hover transition-colors group">
-            <td class="px-4 py-3 text-text-muted">{generateHexId(index)}</td>
+            <td class="px-4 py-3 text-text-muted">{formatDate(entry.data.pubDate)}</td>
             <td class="px-4 py-3">
               <a 
                 href={`/til/${entry.id}`}
@@ -49,7 +49,7 @@ const displayEntries = entries.slice(0, limit);
                 {entry.data.category}
               </span>
             </td>
-            <td class="px-4 py-3 text-text-muted">{formatDate(entry.data.pubDate)}</td>
+            <td class="px-4 py-3 text-text-muted">{generateHexId(index)}</td>
           </tr>
         ))}
       </tbody>
