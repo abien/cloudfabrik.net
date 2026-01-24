@@ -27,7 +27,11 @@ async function runTarget(target, mode) {
   console.log(`\nChecking ${target.name} [${mode.name}]: ${url}`);
   const result = await pa11y(url, {
     standard: 'WCAG2AA',
-    chromeLaunchConfig: { headless: true },
+    // CI runners can disable user namespaces; fall back to no-sandbox flags there
+    chromeLaunchConfig: {
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+    },
     actions: mode.actions,
     wait: 500
   });
