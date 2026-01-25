@@ -21,6 +21,14 @@ export default defineConfig({
     inlineStylesheets: 'auto',
   },
   vite: {
+    server: {
+      watch: {
+        awaitWriteFinish: {
+          stabilityThreshold: 1000,
+          pollInterval: 1000,
+        },
+      },
+    },
     build: {
       cssMinify: true,
     },
