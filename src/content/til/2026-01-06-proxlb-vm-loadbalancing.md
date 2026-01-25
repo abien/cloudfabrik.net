@@ -15,8 +15,6 @@ draft: false
 
 ## Update 2026-01-08
 
-1234
-
 Ich konnte problemlos ca 100 virtuelle Umgebung mit ProxLB migrieren. Die Verteilung ist wesentlich gleichmäßiger als vorher. Job well done.
 
 ## Welches Problem löst ProxLB?
