@@ -12,7 +12,7 @@
 ## Profildaten
 
 - **Alias:** abien
-- **E-Mail:** abien@gmx.net (obfuskiert: `a***@g**.net`)
+- **E-Mail:** abien@cloudfabrik.net (obfuskiert: `a***@c*********.net`)
 - **GitHub:** https://github.com/abien/
 - **LinkedIn:** https://www.linkedin.com/in/alexanderbien/
 - **Bio:** 25+ Jahre IT-Infrastruktur & Ops-Erfahrung. Aktuell CIO @ Symgenius GmbH & Co. KG
@@ -680,7 +680,7 @@ export function obfuscateEmail(email: string): string {
   const [domainName, tld] = domain.split('.');
   return `${local[0]}***@${domainName[0]}**.${tld}`;
 }
-// "abien@gmx.net" → "a***@g**.net"
+// "abien@cloudfabrik.net" → "a***@c*********.net"
 ```
 
 ---
