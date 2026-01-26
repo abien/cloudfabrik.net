@@ -1,5 +1,5 @@
 ---
-import { Terminal, Search, Settings, Sun, Moon } from '@lucide/astro';
+import { Terminal, Search, Rss, Sun, Moon } from '@lucide/astro';
 
 interface Props {
   currentPath?: string;
@@ -41,9 +41,9 @@ const getPathDisplay = (path: string): string => {
     </label>
     
     <div class="flex gap-2">
-      <button class="btn-icon" title="Settings">
-        <Settings class="w-5 h-5" />
-      </button>
+      <a href="/rss.xml" class="btn-icon" title="RSS Feed" aria-label="RSS Feed">
+        <Rss class="w-5 h-5" />
+      </a>
       <button id="theme-toggle" class="btn-icon" title="Toggle light/dark mode" aria-label="Toggle light or dark mode">
         <Sun class="w-5 h-5 theme-icon theme-icon-sun" />
         <Moon class="w-5 h-5 theme-icon theme-icon-moon" />
