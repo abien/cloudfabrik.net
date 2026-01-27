@@ -2,7 +2,6 @@
 title: "Erste Probefahrt mit opencode"
 description: "opencode ziemlich populär, Tendenz steigend. Ich probiere es aus."
 pubDate: 2026-01-05
-updatedDate: 2026-01-08
 category: "AI/ML"
 tags: ["opencode"]
 draft: false
