@@ -4,10 +4,11 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/sync-github-stars.mjs && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "a11y": "node scripts/a11y.mjs"
+    "a11y": "node scripts/a11y.mjs",
+    "sync-github-stars": "node scripts/sync-github-stars.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
@@ -23,6 +24,7 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.0",
     "pa11y": "^9.0.1"
   }
 }

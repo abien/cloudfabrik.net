@@ -22,7 +22,7 @@ const updatedEntries = entries
     <span class="text-[10px] text-text-muted font-mono">count: {updatedEntries.length}</span>
   </div>
   
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="space-y-2">
     {updatedEntries.slice(0, 4).map((entry) => (
       <a 
         href={`/til/${entry.id}`}

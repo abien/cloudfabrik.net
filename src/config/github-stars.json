@@ -1,0 +1,9 @@
+{
+  "repos": [
+    "anthropic-ai/anthropic-sdk-python",
+    "openai/gpt-4",
+    "huggingface/transformers",
+    "pytorch/pytorch",
+    "tensorflow/tensorflow"
+  ]
+}

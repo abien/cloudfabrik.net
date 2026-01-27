@@ -6,6 +6,7 @@ import Sidebar from '../components/Sidebar.astro';
 import Statusbar from '../components/Statusbar.astro';
 import TilTable from '../components/TilTable.astro';
 import UpdatedGrid from '../components/UpdatedGrid.astro';
+import GitHubStars from '../components/GitHubStars.astro';
 
 const allPosts = await getCollection('til', ({ data }) => !data.draft);
 const sortedByDate = allPosts.sort((a, b) => 
@@ -27,8 +28,9 @@ const recentTil = sortedByDate.slice(0, 10);
           <TilTable entries={recentTil} limit={10} totalCount={allPosts.length} />
         </div>
         
-        <div id="updated">
+        <div id="updated" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <UpdatedGrid entries={sortedByDate} limit={10} />
+          <GitHubStars limit={10} />
         </div>
       </div>
     </main>

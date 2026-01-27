@@ -1,4 +1,3 @@
-
 ---
 title: "ProxLB: Load Balancing von CTs/VMs innerhalb des Clusters"
 description: "Das Open-Source-Projekt ProxLB verspricht Load Balancing innerhalb von Proxmox. Ich probiere es aus."
