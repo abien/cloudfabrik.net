@@ -28,6 +28,9 @@ jobs:
 
       - name: Sync GitHub stars
         run: npm run sync-github-stars
+
+      - name: Build with GitHub stars
+        run: npm run build
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 

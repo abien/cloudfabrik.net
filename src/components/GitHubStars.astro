@@ -4,13 +4,11 @@ import { scrapeGitHubStarsList } from '../utils/github';
 
 interface Props {
   limit?: number;
-  username?: string;
-  listName?: string;
 }
 
-const { limit = 10, username = 'abien', listName = 'ai-ml' } = Astro.props;
+const { limit = 10 } = Astro.props;
 
-const repos = await scrapeGitHubStarsList(username, listName, limit);
+const repos = await scrapeGitHubStarsList(limit);
 ---
 
 <section>

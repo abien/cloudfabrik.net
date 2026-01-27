@@ -51,18 +51,29 @@ To enable automatic scraping of your GitHub star lists:
    # Edit .env.local and add your GITHUB_TOKEN
    ```
 
-4. The system automatically:
-   - **Locally**: Run `npm run build` to scrape and build
-   - **GitHub Actions**: GitHub Action runs daily (6 UTC) to sync stars
-   - **CI/CD (Cloudflare Pages)**: Uses cached config if scraping fails
+### Workflow
 
-**Manual sync:**
+**Local Development:**
 ```bash
-npm run sync-github-stars  # Scrape your AI/ML star list via Playwright
-npm run build             # Build and sync automatically
+npm run build  # Automatically: 1) scrapes AI/ML star list 2) fetches repo details 3) builds site
 ```
+The sync happens automatically during build - no manual steps needed.
 
-The `GitHubStars` component automatically:
+**GitHub Actions (Daily Sync):**
+- Runs at 6 UTC every day
+- Scrapes your AI/ML star list via Playwright
+- Fetches live repo details:
+- Loads repos from cached config (scraped daily by GitHub Action)
+- Fetches live star counts via GitHub REST API during build
+- Updates on every build
+- Displays repos in your curated(CI/CD):**
+- Runs `npm run build` without local Playwright
+- Uses cached `github-stars-config.json` from git
+- Falls back gracefully if scraping fails
+
+### Component Usage
+
+The `GitHubStars` component:
 - Loads repos from cached config (scraped by sync script)
 - Fetches live star counts via GitHub REST API
 - Updates on every build
@@ -70,7 +81,7 @@ The `GitHubStars` component automatically:
 
 **Usage in components:**
 ```astro
-<GitHubStars limit={10} username="abien" listName="ai-ml" />
+<GitHubStars limit={10} />
 ```
 
 **Note:** 
