@@ -10,7 +10,7 @@ export interface GitHubRepo {
 
 // Load .env.local in dev mode
 const env = loadEnv('', process.cwd(), 'GITHUB_TOKEN');
-const GITHUB_TOKEN = env.GITHUB_TOKEN || process.env.GITHUB_TOKEN;
+const GITHUB_TOKEN = env.GITHUB_TOKEN || process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
 
 export async function scrapeGitHubStarsList(
   username: string = 'abien',

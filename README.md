@@ -40,15 +40,31 @@ To enable automatic scraping of your GitHub star lists:
    - Permissions: `Contents: Read` on public repositories
    - No expiration or set to 90 days
 
-2. Copy `.env.local.example` to `.env.local` and add your token:
+2. Add as GitHub Secret (for Actions):
+   - Go to Repository Settings → Secrets and Variables → Actions
+   - Create secret named **`GH_TOKEN`** (NOT `GITHUB_TOKEN` - GitHub reserves that prefix)
+   - Paste your token value
+
+3. Copy `.env.local.example` to `.env.local` for local development:
    ```bash
    cp .env.local.example .env.local
    # Edit .env.local and add your GITHUB_TOKEN
    ```
 
+4. The system automatically:
+   - **Locally**: Run `npm run build` to scrape and build
+   - **GitHub Actions**: GitHub Action runs daily (6 UTC) to sync stars
+   - **CI/CD (Cloudflare Pages)**: Uses cached config if scraping fails
+
+**Manual sync:**
+```bash
+npm run sync-github-stars  # Scrape your AI/ML star list via Playwright
+npm run build             # Build and sync automatically
+```
+
 The `GitHubStars` component automatically:
-- Scrapes your GitHub star lists (e.g., `https://github.com/stars/abien/lists/ai-ml`)
-- Fetches live star counts via GitHub GraphQL API
+- Loads repos from cached config (scraped by sync script)
+- Fetches live star counts via GitHub REST API
 - Updates on every build
 - Displays repos in list order
 
@@ -57,7 +73,10 @@ The `GitHubStars` component automatically:
 <GitHubStars limit={10} username="abien" listName="ai-ml" />
 ```
 
-**Note:** `.env.local` is in `.gitignore` and should never be committed.
+**Note:** 
+- `.env.local` is in `.gitignore` and should never be committed
+- `src/config/github-stars-config.json` is committed (fallback for CI/CD)
+- GitHub Action uses `GH_TOKEN` secret (set in repository Settings → Secrets and Variables → Actions)
 
 ## Project Structure
 

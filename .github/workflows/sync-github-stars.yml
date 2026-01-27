@@ -1,0 +1,40 @@
+name: Sync GitHub Stars
+
+on:
+  schedule:
+    # Jeden Tag um 6 Uhr UTC
+    - cron: '0 6 * * *'
+  # Auch manuell triggern
+  workflow_dispatch:
+
+jobs:
+  sync-stars:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Sync GitHub stars
+        run: npm run sync-github-stars
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Commit changes
+        uses: actions/git-auto-commit@v4
+        with:
+          commit_message: 'chore: update GitHub stars config'
+          file_pattern: 'src/config/github-stars-config.json'
+          commit_user_name: 'github-actions[bot]'
+          commit_user_email: '41898282+github-actions[bot]@users.noreply.github.com'

@@ -78,7 +78,8 @@ async function scrapeStarList(username = 'abien', listName = 'ai-ml') {
     return repos;
   } catch (error) {
     console.error('❌ Error scraping star list:', error.message);
-    process.exit(1);
+    console.warn('⚠️  Using cached config (if available)');
+    process.exit(0); // Exit gracefully - build continues with cached config
   } finally {
     if (browser) {
       await browser.close();
