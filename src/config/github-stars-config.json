@@ -1,7 +1,11 @@
 {
   "repos": [
     "anomalyco/opencode",
-    "code-yeongyu/oh-my-opencode"
+    "code-yeongyu/oh-my-opencode",
+    "Opencode-DCP/opencode-dynamic-context-pruning",
+    "junhoyeo/tokscale",
+    "decolua/9router",
+    "kdcokenny/ocx"
   ],
-  "lastUpdated": "2026-01-27T21:02:32.845Z"
+  "lastUpdated": "2026-01-28T08:18:35.515Z"
 }
