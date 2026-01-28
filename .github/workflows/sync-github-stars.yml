@@ -1,5 +1,8 @@
 name: Sync GitHub Stars
 
+permissions:
+  contents: write
+
 on:
   schedule:
     # Jeden Tag um 6 Uhr UTC
