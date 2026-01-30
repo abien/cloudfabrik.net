@@ -5,7 +5,10 @@
     "Opencode-DCP/opencode-dynamic-context-pruning",
     "junhoyeo/tokscale",
     "decolua/9router",
-    "kdcokenny/ocx"
+    "kdcokenny/ocx",
+    "wavetermdev/waveterm",
+    "openclaw/openclaw",
+    "cxOrz/smart-codebase"
   ],
-  "lastUpdated": "2026-01-29T06:19:54.019Z"
+  "lastUpdated": "2026-01-30T06:20:17.075Z"
 }
