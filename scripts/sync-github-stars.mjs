@@ -29,26 +29,19 @@ async function scrapeStarList(username = 'abien', listName = 'ai-ml') {
 
     await page.goto(url, { waitUntil: 'networkidle' });
 
-    // Extract repo links from the page
+    // Extract repo links from the star list container (preserves "recently starred" order)
     const repos = await page.evaluate(() => {
-      const repoElements = document.querySelectorAll('a[href*="/"][href*="/"]');
+      const repoLinks = document.querySelectorAll(
+        '#user-list-repositories > div.d-block div.d-inline-block.mb-1 > a'
+      );
       const repoSet = new Set();
 
-      repoElements.forEach(el => {
+      repoLinks.forEach(el => {
         const href = el.getAttribute('href');
         if (href) {
-          // Match pattern: /owner/repo (but not /owner/repo/something)
           const match = href.match(/^\/([a-zA-Z0-9._-]+\/[a-zA-Z0-9._-]+)$/);
           if (match) {
-            const fullName = match[1];
-            // Filter out non-repo links
-            if (
-              !fullName.includes('?') &&
-              !fullName.includes('pull') &&
-              !fullName.includes('issues')
-            ) {
-              repoSet.add(fullName);
-            }
+            repoSet.add(match[1]);
           }
         }
       });
