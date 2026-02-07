@@ -32,7 +32,7 @@ async function scrapeStarList(username = 'abien', listName = 'ai-ml') {
     // Extract repo links from the star list container (preserves "recently starred" order)
     const repos = await page.evaluate(() => {
       const repoLinks = document.querySelectorAll(
-        '#user-list-repositories > div.d-block div.d-inline-block.mb-1 > a'
+        '#user-list-repositories > div.d-block div.d-inline-block.mb-1 h2 > a'
       );
       const repoSet = new Set();
 
