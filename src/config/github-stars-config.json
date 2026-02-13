@@ -9,13 +9,14 @@
     "wavetermdev/waveterm",
     "openclaw/openclaw",
     "cxOrz/smart-codebase",
-    "avifenesh/awesome-slash",
+    "avifenesh/agentsys",
     "avifenesh/agnix",
     "icysaintdx/OpenCode-Config-Manager",
     "Finesssee/ProxyPilot",
     "0xK3vin/MegaMemory",
     "IgorWarzocha/opencode-usage-plugin",
-    "itsmylife44/opencode-cliproxyapi-sync"
+    "itsmylife44/opencode-cliproxyapi-sync",
+    "itsmylife44/cliproxyapi-dashboard"
   ],
-  "lastUpdated": "2026-02-12T06:30:17.479Z"
+  "lastUpdated": "2026-02-13T06:26:54.127Z"
 }
