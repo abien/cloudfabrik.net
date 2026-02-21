@@ -7,8 +7,8 @@
     "decolua/9router",
     "kdcokenny/ocx",
     "wavetermdev/waveterm",
-    "avifenesh/agentsys",
-    "avifenesh/agnix",
+    "agent-sh/agentsys",
+    "agent-sh/agnix",
     "icysaintdx/OpenCode-Config-Manager",
     "Finesssee/ProxyPilot",
     "0xK3vin/MegaMemory",
@@ -20,5 +20,5 @@
     "effortprogrammer/mcpflow-router",
     "srod/oh-my-opencode-config"
   ],
-  "lastUpdated": "2026-02-20T06:23:58.868Z"
+  "lastUpdated": "2026-02-21T06:17:32.543Z"
 }
