@@ -9,7 +9,6 @@
     "wavetermdev/waveterm",
     "agent-sh/agentsys",
     "agent-sh/agnix",
-    "icysaintdx/OpenCode-Config-Manager",
     "Finesssee/ProxyPilot",
     "0xK3vin/MegaMemory",
     "IgorWarzocha/opencode-usage-plugin",
@@ -20,5 +19,5 @@
     "effortprogrammer/mcpflow-router",
     "srod/oh-my-opencode-config"
   ],
-  "lastUpdated": "2026-02-21T06:17:32.543Z"
+  "lastUpdated": "2026-02-22T06:20:10.188Z"
 }
