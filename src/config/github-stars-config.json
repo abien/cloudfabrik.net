@@ -22,7 +22,8 @@
     "router-for-me/CLIProxyAPIPlus",
     "nextlevelbuilder/ui-ux-pro-max-skill",
     "Postmodum37/ocwatch",
-    "paperclipai/paperclip"
+    "paperclipai/paperclip",
+    "rtk-ai/rtk"
   ],
-  "lastUpdated": "2026-03-14T06:20:24.741Z"
+  "lastUpdated": "2026-03-15T06:26:24.584Z"
 }
