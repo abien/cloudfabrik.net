@@ -2,7 +2,7 @@
   "repos": [
     "anomalyco/opencode",
     "code-yeongyu/oh-my-openagent",
-    "Opencode-DCP/opencode-dynamic-context-pruning",
+    "Tarquinen/opencode-dynamic-context-pruning",
     "junhoyeo/tokscale",
     "decolua/9router",
     "kdcokenny/ocx",
@@ -23,5 +23,5 @@
     "alvarosanchez/ocp",
     "diegosouzapw/OmniRoute"
   ],
-  "lastUpdated": "2026-09-20T06:20:21.047Z"
+  "lastUpdated": "2026-09-21T06:29:46.492Z"
 }
